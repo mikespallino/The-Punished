@@ -50,4 +50,11 @@ public class Town {
 		return map[y][x];
 	}
 	
+	public int getChunkWidth() {
+		return map[0].length;
+	}
+	
+	public int getChunkHeight() {
+		return map.length;
+	}
 }
