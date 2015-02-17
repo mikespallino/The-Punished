@@ -28,9 +28,14 @@ public class Main extends BasicGame {
 	}
 	
 	public void init(GameContainer gc) throws SlickException {
-		player = new Player("Bob", 100, new String[][] {{"/res/up1.png", "/res/up2.png", "/res/up3.png"}, {"/res/right1.png", "/res/right2.png", "/res/right3.png"}, {"/res/down1.png", "/res/down2.png", "/res/down3.png"}, {"/res/left1.png", "/res/left2.png", "/res/left3.png"}}, new int[] {300,300,300});
+		player = new Player("Bob", 100, new String[][] {{"/res/up1.png", "/res/up2.png", "/res/up3.png"}, 
+														{"/res/right1.png", "/res/right2.png", "/res/right3.png"}, 
+														{"/res/down1.png", "/res/down2.png", "/res/down3.png"}, 
+														{"/res/left1.png", "/res/left2.png", "/res/left3.png"}}, 
+							new int[] {300,300,300});
 		try {
-			lurok = new Town("Lurok", 2, 3, new String[] {"/res/map.tmx", "/res/map2.tmx", "/res/map3.tmx", "/res/map4.tmx", "/res/map5.tmx", "/res/map6.tmx"});
+			lurok = new Town("Lurok", 2, 3, new String[] {"/res/map.tmx", "/res/map2.tmx", "/res/map3.tmx", 
+														  "/res/map4.tmx", "/res/map5.tmx", "/res/map6.tmx"});
 		} catch (Exception e) {
 			Logger.getLogger(Main.class).log(Level.SEVERE, null, e);
 			System.exit(-1);
