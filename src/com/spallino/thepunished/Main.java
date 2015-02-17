@@ -7,6 +7,7 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.spallino.thepunished.entities.Player;
@@ -19,6 +20,7 @@ public class Main extends BasicGame {
 	private TiledMap map;
 	private Town lurok;
 	private Player player;
+	private Sound track;
 	
 	public Main(String name) {
 		super(name);
@@ -37,12 +39,17 @@ public class Main extends BasicGame {
 			Logger.getLogger(Main.class).log(Level.SEVERE, null, e);
 			System.exit(-1);
 		}
+		track = new Sound(Main.class.getResource("/EM2 Final.wav"));
+		track.play();
 		map = player.getLocation().getChunk(0, 0);
 	}
 	
 	public void update(GameContainer gc, int i) throws SlickException {
 		player.update(i, gc.getInput());
 		map = player.updateChunk(gc.getWidth(), gc.getHeight());
+		if(!track.playing()) {
+			track.play();
+		}
 	}
 	
 	public void render(GameContainer gc, Graphics g) throws SlickException {
@@ -51,8 +58,9 @@ public class Main extends BasicGame {
 	}
 	
 	public static void main(String[] args) {
+		AppGameContainer appgc;
 		try {
-			AppGameContainer appgc = new AppGameContainer(new Main("The Punished"));
+			appgc = new AppGameContainer(new Main("The Punished"));
 			appgc.setDisplayMode(640, 480, false);
 			appgc.start();
 		} catch (SlickException ex) {
