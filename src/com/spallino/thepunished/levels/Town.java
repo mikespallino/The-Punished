@@ -1,20 +1,29 @@
 package com.spallino.thepunished.levels;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class Town {
 
 	private String name;
 	private TiledMap[][] map;
+	private ArrayList<Sound> songs = new ArrayList<Sound>();
+	private Random r = new Random();
 	
-	public Town(String name, int chunkSizeX, int chunkSizeY, String[] pathToFiles) throws Exception {
-		if(chunkSizeX * chunkSizeY != pathToFiles.length) {
+	public Town(String name, int chunkSizeX, int chunkSizeY, String[] pathToMaps, String[] pathToSongs) throws Exception {
+		if(chunkSizeX * chunkSizeY != pathToMaps.length) {
 			throw new Exception("Chunk Size must match the number of map files.");
 		} else {
 			this.setName(name);
 			setMap(new TiledMap[chunkSizeY][chunkSizeX]);
-			loadMap(pathToFiles);
+			loadMap(pathToMaps);
+			for(String str : pathToSongs) {
+				songs.add(new Sound(Town.class.getResource(str)));
+			}
 		}
 	}
 
@@ -56,5 +65,23 @@ public class Town {
 	
 	public int getChunkHeight() {
 		return map.length;
+	}
+	
+	public Sound getRandonTrack() {
+		r.setSeed(System.nanoTime());
+		return songs.get(r.nextInt(songs.size()));
+	}
+	
+	public Sound getTrack(int i) {
+		return i < songs.size() ? songs.get(i) : null;
+	}
+	
+	public Sound getTrackPlaying() {
+		for(Sound s : songs) {
+			if(s.playing()) {
+				return s;
+			}
+		}
+		return null;
 	}
 }
