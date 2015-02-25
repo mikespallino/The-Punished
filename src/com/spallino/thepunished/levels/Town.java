@@ -22,6 +22,7 @@ public class Town {
 			setMap(new TiledMap[chunkSizeY][chunkSizeX]);
 			loadMap(pathToMaps);
 			for(String str : pathToSongs) {
+				System.out.println(str);
 				songs.add(new Sound(Town.class.getResource(str)));
 			}
 		}
